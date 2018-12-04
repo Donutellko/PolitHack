@@ -33,8 +33,9 @@ const PolitHack = (function() {
 	const QUESTION_MASK = /[^а-яА-ЯёЁ0-9a-zA-Z]/g;
 
 	function areEqualQuestions(question1, question2) {
-		return question2.replace(QUESTION_MASK, '').toLowerCase()
-				.startsWith(question1.replace(QUESTION_MASK, '').toLowerCase())
+		const tmp1 = question1.replace(QUESTION_MASK, '').toLowerCase()
+		const tmp2 = question2.replace(QUESTION_MASK, '').toLowerCase()
+		return tmp1.includes(tmp1) || tmp2.includes(tmp2)
 	}
 
 	function getTaskBlocks() {
