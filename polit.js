@@ -44,12 +44,18 @@ const PolitHack = (function() {
 
 	function textOf(element) {
 		let text = '';
-		
+
 		for (let each of element.childNodes) {
 			if (each.nodeName === '#text')
 				text += each.textContent.trim();
-	        if (each.tagName === 'P' || each.tagName === 'A' || each.tagName === 'STRONG')
-				text += textOf(each);
+
+	        if (
+	        	each.tagName === 'P' ||
+	        	each.tagName === 'A' ||
+	        	each.tagName === 'EM' ||
+	        	each.tagName === 'STRONG'
+	        ) text += textOf(each);
+
 			if (each.tagName === 'DIV' && !each.classList.contains('ablock'))
 				text += textOf(each);
 		}
@@ -90,7 +96,7 @@ const PolitHack = (function() {
 							const answers = task.variants[n - 1];
 
 							if (answers.length > 0) {
-								const correctness = answers[answers.length - 1]; 
+								const correctness = answers[answers.length - 1];
 								let correctCount = '';
 
 								if (correctness.startsWith('Верных')) {
@@ -113,7 +119,7 @@ const PolitHack = (function() {
 			if (!found) {
 				labelWrong(header, 'No info (');
 			}
-		}		
+		}
 	}
 
 	const TASK_BLOCK_TYPE = {
@@ -260,10 +266,10 @@ const PolitHack = (function() {
 
 			for (let that of tasksTo) {
 				if (areEqualQuestions(it.question, that.question)) {
-					
+
 					if (that.variants.length !== 0) {
 						console.log('Updated: ' + it.question)
-						
+
 						if (it.variants.length === 0) {
 							that.answer = it.answer
 							that.variants = []
@@ -345,7 +351,7 @@ const PolitHack = (function() {
 			}
 		}
 	}
-	
+
 	return {
 		isAnswerAvailable: isAnswerAvailable,
 		areEqualQuestions: areEqualQuestions,
